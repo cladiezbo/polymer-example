@@ -1,0 +1,79 @@
+<link rel="import" href="./node_modules/@polymer/polymer/polymer-element.html">
+
+<dom-module id="input-search">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        border: solid 1px green;
+        padding: 5px;
+        --min-size: 48px;
+        align-items: center;
+      }
+      input {
+        flex-grow: 1;
+        height: var(--min-size);
+      }
+      button {
+        margin-left: 1rem;
+        height: var(--min-size);
+        min-width: var(--min-size);
+      }
+    </style>
+
+    <input type="text" value="[[value]]" placeholder="[[placeholder]]">
+
+    <button on-click="sendValue">[[buttonTitle]]</button>
+
+  </template>
+
+  <script>
+
+    class InputSearch extends Polymer.Element {
+
+      static get is() {
+        return 'input-search';
+      }
+
+      static get properties() {
+        return {
+          value: String,
+          buttonTitle: String,
+          placeholder: String,
+          regExp: String
+        };
+      }
+
+      ready() {
+        super.ready();
+        let inputEl = this.shadowRoot.querySelector('input');
+        inputEl.addEventListener('keyup', this.validateInputValue.bind(this));
+      }
+
+      validateInputValue(event) {
+        let inputValue = event.currentTarget.value;
+        this.toggleButton(inputValue ? true : false);
+      }
+
+      toggleButton(status) {
+        let buttonEl = this.shadowRoot.querySelector('button');
+        buttonEl.disabled = !status;
+      }
+
+      sendValue() {
+        let inputValue = this.shadowRoot.querySelector('input').value;
+        let event = new CustomEvent('button-clicked', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            value: inputValue
+          }
+        });
+        this.dispatchEvent(event);
+      }
+
+    }
+
+    window.customElements.define(InputSearch.is, InputSearch);
+  </script>
+</dom-module>

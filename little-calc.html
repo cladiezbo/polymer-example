@@ -1,0 +1,41 @@
+
+<link rel="import" href="input-search.html">
+
+<dom-module id="little-calc">
+  <template>
+    <style>
+      :host {
+        display: block;
+        border: solid 1px blue;
+        padding: 5px;
+      }
+      .greeting {
+        color: red;
+      }
+    </style>
+
+    <p class="greeting">hola soy [[name]] [[surname]]</p>
+
+    <input-search placeholder="hola soy el placeholder" value="valor por defecto" button-title="😍"></input-search>
+  
+  </template>
+
+  <script>
+
+    class LittleCalc extends Polymer.Element {
+
+      static get is() {
+        return 'little-calc';
+      }
+
+      static get properties() {
+        return {
+          
+        };
+      }
+
+    }
+
+    window.customElements.define(LittleCalc.is, LittleCalc);
+  </script>
+</dom-module>

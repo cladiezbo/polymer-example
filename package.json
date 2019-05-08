@@ -1,0 +1,21 @@
+{
+  "name": "polymer-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -o"
+  },
+  "keywords": [
+    "polymer"
+  ],
+  "author": "edu",
+  "license": "ISC",
+  "dependencies": {
+    "@polymer/polymer": "^2.6.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
