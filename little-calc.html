@@ -1,6 +1,5 @@
-
 <link rel="import" href="input-search.html">
-
+<link rel="import" href="node_modules/@polymer/polymer/lib/elements/dom-repeat.html">
 <dom-module id="little-calc">
   <template>
     <style>
@@ -9,15 +8,18 @@
         border: solid 1px blue;
         padding: 5px;
       }
+
       .greeting {
         color: red;
       }
     </style>
-
-    <p class="greeting">hola soy [[name]] [[surname]]</p>
-
-    <input-search placeholder="hola soy el placeholder" value="valor por defecto" button-title="😍"></input-search>
-  
+    <input-search placeholder="escriba un número..." value="1" button-title="multiplicar por 3" reg-exp=[0-9]+>
+    </input-search>
+    <ul>
+      <template is="dom-repeat" items="[[list]]">
+        <li>{{item}}</li>
+      </template>
+    </ul>
   </template>
 
   <script>
@@ -30,12 +32,27 @@
 
       static get properties() {
         return {
-          
+          list: Array
         };
       }
+      ready() {
+        super.ready();
+        this.list = new Array();
+        let inputSearchEl = this.shadowRoot.querySelector('input-search');
+        inputSearchEl.addEventListener('button-clicked', (event) => {
+          let num = event.detail.value;
+          let result = this.multiply(3, num);
+          this.saveValue(result);
+        });
+      }
 
+      multiply(x, y) {
+        return x * y;
+      }
+      saveValue(value) {
+        this.push('list', value);
+      }
     }
-
     window.customElements.define(LittleCalc.is, LittleCalc);
   </script>
 </dom-module>
